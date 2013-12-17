@@ -9,3 +9,4 @@ Current components:
  - Button (w.label)
  - Slider (horizontal/vertical w.label)
  - HBox and VBox with customizable spacing
+ - WindowBase (a bordered, dropshadowed rectangle with a label and a scrollrect)
