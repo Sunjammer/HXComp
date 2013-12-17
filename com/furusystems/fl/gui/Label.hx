@@ -1,6 +1,5 @@
 package com.furusystems.fl.gui;
 import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 

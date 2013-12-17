@@ -1,13 +1,7 @@
 package com.furusystems.fl.gui;
-import com.furusystems.flywheel.events.Signal;
 import com.furusystems.flywheel.events.Signal1;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
-import flash.text.AutoCapitalize;
-import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
 
 /**
  * ...
