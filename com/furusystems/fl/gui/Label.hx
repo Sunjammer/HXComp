@@ -1,4 +1,4 @@
-package no.expology.utils.kps.gui;
+package com.furusystems.fl.gui;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
@@ -12,7 +12,7 @@ class Label extends TextField
 {
 
 	private static var DEFAULT_TF:TextFormat = new TextFormat("_sans", 10, 0,null,null,null,null,null,TextFormatAlign.CENTER);
-	public function new(?text:String, ?w:Int, ?h:Int) 
+	public function new(?text:String, ?w:Int, ?h:Int)
 	{
 		super();
 		defaultTextFormat = DEFAULT_TF;

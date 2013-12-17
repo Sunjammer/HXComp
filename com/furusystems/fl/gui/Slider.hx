@@ -1,4 +1,4 @@
-package no.expology.utils.kps.gui;
+package com.furusystems.fl.gui;
 import com.furusystems.flywheel.events.Signal1;
 import flash.display.Graphics;
 import flash.display.Shape;
@@ -30,7 +30,7 @@ class Slider extends Sprite
 	private var _indicatorValue:Float = 0;
 	private var roundValues:Bool = false;
 	var indicatorGraphics:Shape;
-	public function new(labelTxt:String = "Slider", length:Int = 100, min:Float = 0, max:Float = 1, defaultValue:Float = 0, ?orientation:SliderOrientation, ?round:Bool) 
+	public function new(labelTxt:String = "Slider", length:Int = 100, min:Float = 0, max:Float = 1, defaultValue:Float = 0, ?orientation:SliderOrientation, ?round:Bool)
 	{
 		super();
 		if (orientation == null) orientation = SliderOrientation.HORIZONTAL;
@@ -80,19 +80,19 @@ class Slider extends Sprite
 		setValue(defaultValue);
 	}
 	
-	private function showValue(e:MouseEvent):Void 
+	private function showValue(e:MouseEvent):Void
 	{
 		previewLabel.visible = true;
 		thumb.addEventListener(MouseEvent.MOUSE_OUT, hideValue);
 	}
 	
-	private function hideValue(e:MouseEvent):Void 
+	private function hideValue(e:MouseEvent):Void
 	{
 		previewLabel.visible = false;
 		thumb.removeEventListener(MouseEvent.MOUSE_OUT, hideValue);
 	}
 	
-	private function onThumbDown(e:MouseEvent):Void 
+	private function onThumbDown(e:MouseEvent):Void
 	{
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
@@ -101,7 +101,7 @@ class Slider extends Sprite
 		previewLabel.visible = true;
 	}
 	
-	private function onMouseUp(e:MouseEvent):Void 
+	private function onMouseUp(e:MouseEvent):Void
 	{
 		stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
@@ -110,7 +110,7 @@ class Slider extends Sprite
 		onValueSet.dispatch(value);
 	}
 	
-	private function onMouseMove(e:MouseEvent):Void 
+	private function onMouseMove(e:MouseEvent):Void
 	{
 		if (orientation == SliderOrientation.HORIZONTAL) {
 			setValueNorm(Math.max(0, Math.min(length, sliderContainer.mouseX)) / length);
@@ -137,19 +137,19 @@ class Slider extends Sprite
 		return (inValue - min) / (max - min);
 	}
 	
-	function get_indicatorValue():Float 
+	function get_indicatorValue():Float
 	{
 		return _indicatorValue;
 	}
 	
-	function set_indicatorValue(value:Float):Float 
+	function set_indicatorValue(value:Float):Float
 	{
 		value = Math.max(min, Math.min(max, value));
 		drawIndicator(value);
 		return _indicatorValue = value;
 	}
 	
-	function drawIndicator(indicatorValue:Float) 
+	function drawIndicator(indicatorValue:Float)
 	{
 		var g:Graphics = indicatorGraphics.graphics;
 		g.clear();

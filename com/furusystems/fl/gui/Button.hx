@@ -1,4 +1,4 @@
-package no.expology.utils.kps.gui;
+package com.furusystems.fl.gui;
 import com.furusystems.flywheel.events.Signal;
 import com.furusystems.flywheel.events.Signal1;
 import flash.display.Sprite;
@@ -21,7 +21,7 @@ class Button extends Sprite
 	var labelTF:Label;
 	var w:Int;
 	var h:Int;
-	public function new(label:String, w:Int, h:Int) 
+	public function new(label:String, w:Int, h:Int)
 	{
 		super();
 		this.h = h;
@@ -39,19 +39,19 @@ class Button extends Sprite
 		addEventListener(MouseEvent.CLICK, onClick);
 	}
 	
-	private function onMouseDown(e:MouseEvent):Void 
+	private function onMouseDown(e:MouseEvent):Void
 	{
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		drawDown();
 	}
 	
-	private function onMouseUp(e:MouseEvent):Void 
+	private function onMouseUp(e:MouseEvent):Void
 	{
 		stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		drawUp();
 	}
 	
-	function drawUp() 
+	function drawUp()
 	{
 		graphics.clear();
 		graphics.beginFill(0xFFFFFF);
@@ -59,7 +59,7 @@ class Button extends Sprite
 		graphics.drawRect(0, 0, w, h);
 		graphics.endFill();
 	}
-	function drawDown() 
+	function drawDown()
 	{
 		graphics.clear();
 		graphics.beginFill(0xEEEEEE);
@@ -75,17 +75,17 @@ class Button extends Sprite
 		drawUp();
 	}
 	
-	private function onClick(e:MouseEvent):Void 
+	private function onClick(e:MouseEvent):Void
 	{
 		onPress.dispatch(this);
 	}
 	
-	function get_label():String 
+	function get_label():String
 	{
 		return _label;
 	}
 	
-	function set_label(value:String):String 
+	function set_label(value:String):String
 	{
 		_label = value;
 		redraw();
