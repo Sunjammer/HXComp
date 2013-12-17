@@ -4,7 +4,6 @@ import flash.display.Graphics;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
-import no.expology.utils.kps.gui.Slider.SliderOrientation;
 
 /**
  * ...
