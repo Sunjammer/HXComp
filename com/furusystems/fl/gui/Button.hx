@@ -15,6 +15,7 @@ class Button extends Sprite
 	var labelTF:Label;
 	var w:Int;
 	var h:Int;
+	public var data:Dynamic;
 	public function new(label:String, w:Int, h:Int)
 	{
 		super();
