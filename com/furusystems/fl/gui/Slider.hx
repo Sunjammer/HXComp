@@ -9,10 +9,6 @@ import flash.events.MouseEvent;
  * ...
  * @author Andreas Rønning
  */
-enum SliderOrientation {
-	VERTICAL;
-	HORIZONTAL;
-}
 class Slider extends Sprite
 {
 	public var length:Int;
@@ -20,7 +16,7 @@ class Slider extends Sprite
 	public var value:Float;
 	var sliderContainer:Sprite;
 	var thumb:Sprite;
-	var orientation:SliderOrientation;
+	var orientation:Orientation;
 	public var max:Float;
 	public var min:Float;
 	public var previewLabel:Label = new Label("Value");
@@ -29,10 +25,10 @@ class Slider extends Sprite
 	private var _indicatorValue:Float = 0;
 	private var roundValues:Bool = false;
 	var indicatorGraphics:Shape;
-	public function new(labelTxt:String = "Slider", length:Int = 100, min:Float = 0, max:Float = 1, defaultValue:Float = 0, ?orientation:SliderOrientation, ?round:Bool)
+	public function new(labelTxt:String = "Slider", length:Int = 100, min:Float = 0, max:Float = 1, defaultValue:Float = 0, ?orientation:Orientation, ?round:Bool)
 	{
 		super();
-		if (orientation == null) orientation = SliderOrientation.HORIZONTAL;
+		if (orientation == null) orientation = Orientation.HORIZONTAL;
 		if (round == null) round = false;
 		onValueChange = new Signal1<Float>();
 		onValueSet = new Signal1<Float>();
@@ -65,11 +61,11 @@ class Slider extends Sprite
 		
 		sliderContainer.graphics.beginFill(0);
 		switch(orientation) {
-			case SliderOrientation.VERTICAL:
+			case VERTICAL:
 				sliderContainer.graphics.drawRect(3, 0, 5, length);
 				sliderContainer.y = label.height;
 				sliderContainer.x = (label.width-11) * .5;
-			case SliderOrientation.HORIZONTAL:
+			case HORIZONTAL:
 				sliderContainer.graphics.drawRect(0, 3, length, 5);
 				sliderContainer.x = label.width;
 				sliderContainer.y = (label.height-11) * .5;
@@ -111,7 +107,7 @@ class Slider extends Sprite
 	
 	private function onMouseMove(e:MouseEvent):Void
 	{
-		if (orientation == SliderOrientation.HORIZONTAL) {
+		if (orientation == HORIZONTAL) {
 			setValueNorm(Math.max(0, Math.min(length, sliderContainer.mouseX)) / length);
 		}else {
 			setValueNorm(Math.max(0, Math.min(length, sliderContainer.mouseY)) / length);
@@ -123,7 +119,7 @@ class Slider extends Sprite
 	}
 	public function setValue(value:Float):Void {
 		this.value = roundValues?Math.round(value):value;
-		if (orientation == SliderOrientation.HORIZONTAL) {
+		if (orientation == HORIZONTAL) {
 			thumb.x = valueToNorm(this.value) * (length - thumb.width);
 		}else {
 			thumb.y = valueToNorm(this.value) * (length - thumb.height);
@@ -154,10 +150,10 @@ class Slider extends Sprite
 		g.clear();
 		g.lineStyle(2, 0xFFFFFF);
 		switch(orientation) {
-			case SliderOrientation.VERTICAL:
+			case VERTICAL:
 				g.moveTo(sliderContainer.x + 3, sliderContainer.y + length * valueToNorm(indicatorValue));
 				g.lineTo(sliderContainer.x + 8, sliderContainer.y + length * valueToNorm(indicatorValue));
-			case SliderOrientation.HORIZONTAL:
+			case HORIZONTAL:
 		}
 	}
 	
