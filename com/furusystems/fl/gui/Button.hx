@@ -16,6 +16,9 @@ class Button extends Sprite
 	var w:Int;
 	var h:Int;
 	public var data:Dynamic;
+	public var highlit(get, set):Bool;
+	var _highlit:Bool;
+	var _isDown:Bool;
 	public function new(label:String, w:Int, h:Int)
 	{
 		super();
@@ -34,15 +37,27 @@ class Button extends Sprite
 		addEventListener(MouseEvent.CLICK, onClick);
 	}
 	
+	inline function get_highlit():Bool {
+		return _highlit;
+	}
+	inline function set_highlit(b:Bool):Bool {
+		_highlit = b;
+		if (_isDown) drawDown();
+		else drawUp();
+		return _highlit;
+	}
+	
 	private function onMouseDown(e:MouseEvent):Void
 	{
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+		_isDown = true;
 		drawDown();
 	}
 	
 	private function onMouseUp(e:MouseEvent):Void
 	{
 		stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+		_isDown = false;
 		drawUp();
 	}
 	
@@ -50,7 +65,7 @@ class Button extends Sprite
 	{
 		graphics.clear();
 		graphics.beginFill(0xFFFFFF);
-		graphics.lineStyle(0, 0);
+		graphics.lineStyle(_highlit?2:0, 0);
 		graphics.drawRect(0, 0, w, h);
 		graphics.endFill();
 	}
@@ -58,7 +73,7 @@ class Button extends Sprite
 	{
 		graphics.clear();
 		graphics.beginFill(0xEEEEEE);
-		graphics.lineStyle(0, 0);
+		graphics.lineStyle(_highlit?2:0, 0);
 		graphics.drawRect(0, 0, w, h);
 		graphics.endFill();
 	}

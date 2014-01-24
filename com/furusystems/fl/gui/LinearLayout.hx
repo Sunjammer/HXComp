@@ -24,7 +24,7 @@ class LinearLayout extends Sprite
 	{
 		layout();
 	}
-	function layout():Void {
+	public function layout():Void {
 		var v:Float = 0;
 		switch(orientation) {
 			case VERTICAL:

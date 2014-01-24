@@ -1,12 +1,9 @@
 package com.furusystems.fl.gui.compound;
 import com.furusystems.fl.gui.Button;
-import com.furusystems.fl.gui.HBox;
 import com.furusystems.fl.gui.Label;
 import com.furusystems.fl.gui.LinearLayout;
 import com.furusystems.fl.gui.Orientation;
-import com.furusystems.fl.gui.VBox;
 import com.furusystems.flywheel.events.Signal2.Signal2;
-import flash.display.Sprite;
 
 /**
  * ...
