@@ -14,11 +14,11 @@ class Dropdown extends Sprite
 	var tempSelection:Label;
 	var items:Array<String>;
 	var itemListContainer:Sprite;
-	public function new() 
+	public function new(width:Int = 80, height:Int = 20) 
 	{
 		super();
 		items = [];
-		selectedLabel = new Label("n/a", 80, 20, true, true, false);
+		selectedLabel = new Label("n/a", width, height, true, true, false);
 		addChild(selectedLabel);
 		addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		itemListContainer = new Sprite();
