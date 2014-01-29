@@ -36,6 +36,17 @@ class Button extends Sprite
 		addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		addEventListener(MouseEvent.CLICK, onClick);
 	}
+	public function setData(d:Dynamic):Button {
+		data = d;
+		return this;
+	}
+	
+	public function setEnabled(b:Bool):Button 
+	{
+		alpha = b?1:0.5;
+		mouseEnabled = b;
+		return this;
+	}
 	
 	inline function get_highlit():Bool {
 		return _highlit;

@@ -47,6 +47,8 @@ class TabbedLayout extends Sprite
 		var i = buttons.length;
 		while (i-- > 0) {
 			if (buttons[i].label.toLowerCase() == id.toLowerCase()) {
+				buttonRow.remove(buttons[i]);
+				if (tabLayouts[i].parent != null) tabLayouts[i].parent.removeChild(tabLayouts[i]);
 				buttons.splice(i, 1);
 				tabLayouts.splice(i, 1);
 				if (buttons.length > 0) setTab(buttons[0]);
@@ -66,8 +68,24 @@ class TabbedLayout extends Sprite
 		addChild(layout).y = buttonRow.height;
 		return layout;
 	}
-	public function getTab(index:Int):LinearLayout {
-		return tabLayouts[index];
+	public function getTabContent(label:String):LinearLayout {
+		label = label.toLowerCase();
+		for (i in 0...buttons.length) {
+			if (buttons[i].label.toLowerCase() == label) {
+				return tabLayouts[i];
+			}
+		}
+		return null;
+	}
+	
+	public function getTab(label:String):Button{
+		label = label.toLowerCase();
+		for (i in 0...buttons.length) {
+			if (buttons[i].label.toLowerCase() == label) {
+				return buttons[i];
+			}
+		}
+		return null;
 	}
 	
 }
