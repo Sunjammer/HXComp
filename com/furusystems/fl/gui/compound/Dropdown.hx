@@ -1,5 +1,6 @@
 package com.furusystems.fl.gui.compound;
 import com.furusystems.fl.gui.Label;
+import com.furusystems.flywheel.events.Signal1.Signal1;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
@@ -14,11 +15,14 @@ class Dropdown extends Sprite
 	var tempSelection:Label;
 	var items:Array<String>;
 	var itemListContainer:Sprite;
-	public function new(width:Int = 80, height:Int = 20) 
+	public var onSelection:Signal1<String>;
+	public function new(width:Int = 80, height:Int = 20, defaultText:String = "") 
 	{
 		super();
+		onSelection = new Signal1<String>();
 		items = [];
-		selectedLabel = new Label("n/a", width, height, true, true, false);
+		selectedLabel = new Label(defaultText, width, height, true, true, false);
+		selectedLabel.background = true;
 		addChild(selectedLabel);
 		addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		itemListContainer = new Sprite();
@@ -27,7 +31,6 @@ class Dropdown extends Sprite
 	
 	private function onMouseDown(e:MouseEvent):Void 
 	{
-		trace("Mouse down");
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		buildList();
@@ -39,6 +42,7 @@ class Dropdown extends Sprite
 		
 		for (i in 0...items.length) {
 			var l = new Label(items[i], 80, 20);
+			l.background = true;
 			l.y = i * 20;
 			itemListContainer.addChild(l);
 		}
@@ -88,6 +92,7 @@ class Dropdown extends Sprite
 	public function setSelection(str:String) 
 	{
 		selectedLabel.text = str;
+		onSelection.dispatch(str);
 	}
 	
 }

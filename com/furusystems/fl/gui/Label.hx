@@ -37,8 +37,8 @@ class Label extends TextField
 	}
 	inline function set_highlit(b:Bool):Bool {
 		_highlit = b;
-		background = b;
-		backgroundColor = 0x808080;
+		//background = b;
+		backgroundColor = b?0x808080:0xFFFFFF;
 		return _highlit;
 	}
 	
