@@ -19,7 +19,7 @@ class Button extends Sprite
 	public var highlit(get, set):Bool;
 	var _highlit:Bool;
 	var _isDown:Bool;
-	public function new(label:String, w:Int, h:Int)
+	public function new(label:String, w:Int = 80, h:Int = 20)
 	{
 		super();
 		this.h = h;
