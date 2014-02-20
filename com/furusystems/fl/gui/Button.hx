@@ -12,7 +12,7 @@ class Button extends Sprite
 	var _label:String;
 
 	public var onPress:Signal1<Button>;
-	var labelTF:Label;
+	var _labelTF:Label;
 	var w:Int;
 	var h:Int;
 	public var data:Dynamic;
@@ -25,10 +25,10 @@ class Button extends Sprite
 		this.h = h;
 		this.w = w;
 		
-		labelTF = new Label();
-		addChild(labelTF);
-		labelTF.width = w;
-		labelTF.height = h;
+		_labelTF = new Label();
+		addChild(_labelTF);
+		_labelTF.width = w;
+		_labelTF.height = h;
 		
 		this.label = label;
 		onPress = new Signal1<Button>();
@@ -108,11 +108,19 @@ class Button extends Sprite
 	
 	function set_label(value:String):String
 	{
+		if (value == null) value = "null";
 		_label = value;
 		redraw();
 		return _label;
 	}
 	
 	public var label(get_label, set_label):String;
+	
+	function get_labelTF():Label 
+	{
+		return _labelTF;
+	}
+	
+	public var labelTF(get_labelTF, null):Label;
 	
 }
