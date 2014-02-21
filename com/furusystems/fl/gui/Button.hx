@@ -110,6 +110,9 @@ class Button extends Sprite
 	{
 		if (value == null) value = "null";
 		_label = value;
+		if (_label.length > 12) {
+			_label = _label.substr(0, 12) + "...";
+		}
 		redraw();
 		return _label;
 	}
