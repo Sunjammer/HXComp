@@ -2,6 +2,7 @@ package com.furusystems.fl.gui.compound;
 import com.furusystems.fl.gui.Button;
 import com.furusystems.fl.gui.HBox;
 import com.furusystems.fl.gui.LinearLayout;
+import com.furusystems.flywheel.events.Signal1;
 import flash.display.Sprite;
 
 /**
@@ -15,9 +16,11 @@ class TabbedLayout extends Sprite
 	var buttons:Array<Button>;
 	var tabLayouts:Array<LinearLayout>;
 	var buttonRow:HBox;
+	public var tabChanged:Signal1<Int>;
 	public function new(?tabs:Array<String>) 
 	{
 		super();
+		tabChanged = new Signal1<Int>();
 		buttonRow = new HBox();
 		buttonRow.spacing = 0;
 		addChild(buttonRow);
@@ -29,6 +32,9 @@ class TabbedLayout extends Sprite
 			}
 			if (tabs.length > 0) setTab(buttons[0]);
 		}
+	}
+	public function getNumTabs():Int {
+		return buttons.length;
 	}
 	
 	public function addTab(id:String, makeCurrent:Bool = false):LinearLayout {
@@ -66,6 +72,7 @@ class TabbedLayout extends Sprite
 		}
 		var layout = tabLayouts[buttons.indexOf(btn)];
 		addChild(layout).y = buttonRow.height;
+		tabChanged.dispatch(buttons.indexOf(btn));
 		return layout;
 	}
 	public function getTabContent(label:String):LinearLayout {
