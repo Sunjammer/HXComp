@@ -17,12 +17,12 @@ class Label extends TextField
 	public var highlit(get, set):Bool;
 	var _highlit:Bool;
 	
-	public function new(?text:String, ?w:Int, ?h:Int, centered:Bool = true, outline:Bool = false, allowInput:Bool = false)
+	public function new(?text:String, ?w:Int, ?h:Int, centered:Bool = true, outline:Bool = false, allowInput:Bool = false, allowSelect:Bool = false)
 	{
 		super();
 		defaultTextFormat = centered?DEFAULT_TF_CENTERED:DEFAULT_TF;
 		
-		mouseEnabled = allowInput;
+		mouseEnabled = allowInput || allowSelect;
 		type = allowInput?TextFieldType.INPUT:TextFieldType.DYNAMIC;
 		if (text != null) this.text = text;
 		if (w != null) width = w;
