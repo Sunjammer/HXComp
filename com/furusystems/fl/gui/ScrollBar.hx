@@ -50,7 +50,7 @@ class ScrollBar extends Sprite
 	
 	public function setValue(f:Float) 
 	{
-		_value = f;
+		_value = Math.max(0, Math.min(1, f));
 		redraw();
 	}
 	

@@ -41,10 +41,19 @@ class Button extends Sprite
 		return this;
 	}
 	
-	public function setEnabled(b:Bool):Button 
+	public function setEnabled(b:Bool, leaveMouseEnabled:Bool = false):Button 
 	{
 		alpha = b?1:0.5;
-		mouseEnabled = b;
+		if (!leaveMouseEnabled) mouseEnabled = b;
+		if (b) {			
+			addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			addEventListener(MouseEvent.CLICK, onClick);
+			buttonMode = true;
+		}else {
+			removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			removeEventListener(MouseEvent.CLICK, onClick);
+			buttonMode = false;
+		}
 		return this;
 	}
 	
