@@ -2,6 +2,7 @@ package com.furusystems.fl.gui;
 import com.furusystems.flywheel.events.Signal1;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
+import flash.geom.Rectangle;
 
 /**
  * ...
@@ -29,6 +30,7 @@ class Button extends Sprite
 		addChild(_labelTF);
 		_labelTF.width = w;
 		_labelTF.height = h;
+		_labelTF.scrollRect = new Rectangle(0, 0, w, h);
 		
 		this.label = label;
 		onPress = new Signal1<Button>();
@@ -119,8 +121,9 @@ class Button extends Sprite
 	{
 		if (value == null) value = "null";
 		_label = value;
-		if (_label.length > 12) {
-			_label = _label.substr(0, 12) + "...";
+		var limit = w / 6;
+		if (_label.length > limit) {
+			_label = _label.substr(0, cast limit) + "...";
 		}
 		redraw();
 		return _label;

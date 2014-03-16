@@ -9,9 +9,10 @@ import flash.events.Event;
  */
 class VBox extends LinearLayout
 {
-	public function new()
+	public function new(stride:Int = -1)
 	{
 		super(VERTICAL);
+		this.stride = stride;
 	}
 	
 }

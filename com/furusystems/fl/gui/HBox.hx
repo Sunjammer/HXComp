@@ -9,9 +9,10 @@ import flash.events.Event;
  */
 class HBox extends LinearLayout
 {
-	public function new()
+	public function new(stride:Float = -1)
 	{
 		super(HORIZONTAL);
+		this.stride = stride;
 	}
 	
 }

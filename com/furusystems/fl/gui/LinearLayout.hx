@@ -11,9 +11,11 @@ class LinearLayout extends Sprite
 {
 	public var spacing:Float;
 	public var orientation:Orientation;
+	public var stride:Float;
 	public function new(?orientation:Orientation)
 	{
 		super();
+		stride = -1;
 		if (orientation == null) orientation = HORIZONTAL;
 		this.orientation = orientation;
 		spacing = 3;
@@ -30,12 +32,14 @@ class LinearLayout extends Sprite
 			case VERTICAL:
 				for (i in 0...numChildren) {
 					getChildAt(i).y = v;
-					v += getChildAt(i).height + spacing;
+					if (stride == -1) v += getChildAt(i).height + spacing;
+					else v += stride + spacing;
 				}
 			case HORIZONTAL:
 				for (i in 0...numChildren) {
 					getChildAt(i).x = v;
-					v += getChildAt(i).width + spacing;
+					if (stride == -1) v += getChildAt(i).width + spacing;
+					else v += stride + spacing;
 				}
 				
 		}
