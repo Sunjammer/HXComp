@@ -9,16 +9,16 @@ import flash.events.MouseEvent;
  * @author Andreas Rønning
  */
 
-typedef TreeViewData = { name:String, parent:TreeViewData, children:Array<Dynamic>};
+typedef TreeViewData<T> = { name:String, parent:T, children:Array<T>};
  
-class TreeViewItem extends Sprite {
+class TreeViewItem<T> extends Sprite {
 	
-	public var data:TreeViewData;
+	public var data:TreeViewData<T>;
 	
 	public var expanded(get, set):Bool;
 	var _expanded:Bool = true;
 	
-	var treeView:TreeView;
+	var treeView:TreeView<T>;
 	
 	var label:Label;
 	var childContainer:Sprite;
@@ -59,11 +59,11 @@ class TreeViewItem extends Sprite {
 		return _expanded;
 	}
 	
-	public function setTreeView(root:TreeView) {
+	public function setTreeView(root:TreeView<T>) {
 		treeView = root;
 	}
 	
-	public function setData(d:TreeViewData) {
+	public function setData(d:TreeViewData<T>) {
 		data = d;
 		rebuild();
 		update();
@@ -74,8 +74,8 @@ class TreeViewItem extends Sprite {
 		childContainer.removeChildren();
 		var offset:Float = height;
 		for (c in data.children) {
-			var n:TreeViewData = cast c;
-			var nv = new TreeViewItem();
+			var n:TreeViewData<T> = cast c;
+			var nv = new TreeViewItem<T>();
 			nv.setTreeView(treeView);
 			childContainer.addChild(nv);
 			nv.setData(n);
@@ -85,11 +85,11 @@ class TreeViewItem extends Sprite {
 		}
 	}
 	
-	function getNodeForData(data:TreeViewData):TreeViewItem {
+	function getNodeForData(data:TreeViewData<T>):TreeViewItem<T> {
 		if (data == null) return null;
 		if (this.data == data) return this;
 		for (i in 0...childContainer.numChildren) {
-			var item:TreeViewItem = cast childContainer.getChildAt(i);
+			var item:TreeViewItem<T> = cast childContainer.getChildAt(i);
 			var r = item.getNodeForData(data);
 			if (r != null) return r;
 		}
@@ -110,17 +110,16 @@ class TreeViewItem extends Sprite {
 	}
 }
 
-@:allow(com.furusystems.fl.gui.layouts.treeview.TreeViewItem)
-class TreeView extends TreeViewItem
+class TreeView<T> extends TreeViewItem<T>
 {
-	public var selection(get, set):TreeViewData;
-	var _selection:TreeViewData;
+	public var selection(get, set):TreeViewData<T>;
+	var _selection:TreeViewData<T>;
 	
-	function get_selection():TreeViewData {
+	function get_selection():TreeViewData<T> {
 		return _selection;
 	}
 	
-	function set_selection(t:TreeViewData):TreeViewData {
+	function set_selection(t:TreeViewData<T>):TreeViewData<T> {
 		if (t == _selection) return _selection;
 		var previousNode = getNodeForData(_selection);
 		_selection = t;
