@@ -11,6 +11,22 @@ class ScrollBar extends Sprite
 {
 	var size:Float;
 	var _value:Float;
+	
+	public var enabled(get, set):Bool;
+	var _enabled:Bool = true;
+	function get_enabled():Bool {
+		return _enabled;
+	}
+	function set_enabled(b:Bool):Bool {
+		mouseEnabled = b;
+		if (b) {
+			alpha = 1;
+		}else {
+			alpha = 0.6;
+		}
+		return _enabled = b;
+	}
+	
 	public var orientation:Orientation;
 	public var onChange:Signal;
 	public function new(?orientation:Orientation) 

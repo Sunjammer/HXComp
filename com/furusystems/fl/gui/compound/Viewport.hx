@@ -42,19 +42,33 @@ class Viewport extends Sprite
 		setRect(rect);
 	}
 	
-	private function onMouseWheel(e:MouseEvent):Void 
+	function canScrollY():Bool {
+		return contents.width > scrollContainer.scrollRect.width;
+	}
+	function canScrollX():Bool {
+		return contents.height > scrollContainer.scrollRect.height;
+	}
+	
+	function onMouseWheel(e:MouseEvent):Void 
 	{
+		if (!canScrollY()) return;
 		vbar.setValue(vbar.value - e.delta * 0.025);
 		onScroll();
 	}
 	
 	function onScroll() 
 	{
-		var xval = hbar.value;
-		var yval = vbar.value;
 		var r = scrollContainer.scrollRect;
-		r.x = xval * (contents.width - r.width);
-		r.y = yval * (contents.height - r.height);
+		
+		if(canScrollX()){
+			var xval = hbar.value;
+			r.x = xval * (contents.width - r.width);
+		}
+		
+		if(canScrollY()){
+			var yval = vbar.value;
+			r.y = yval * (contents.height - r.height);
+		}
 		scrollContainer.scrollRect = r;
 	}
 	
@@ -63,6 +77,8 @@ class Viewport extends Sprite
 		contents.addChild(c);
 		hbar.setValue(0);
 		vbar.setValue(0);
+		hbar.enabled = canScrollX();
+		vbar.enabled = canScrollY();
 		return c;
 	}
 	
