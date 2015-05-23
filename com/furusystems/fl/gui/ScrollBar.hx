@@ -1,7 +1,7 @@
 package com.furusystems.fl.gui;
-import com.furusystems.flywheel.events.Signal;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
+import fsignal.Signal;
 
 /**
  * ...
@@ -40,7 +40,12 @@ class ScrollBar extends Sprite
 	
 	private function onMouseMove(e:MouseEvent):Void 
 	{
-		value = Math.max(0, Math.min(mouseY / (size-10), 1));
+		switch(orientation) {
+			case VERTICAL:
+				value = Math.max(0, Math.min(mouseY / (size-10), 1));
+			case HORIZONTAL:
+				value = Math.max(0, Math.min(mouseX / (size-10), 1));
+		}
 	}
 	
 	public function setSize(value:Float):Void {
@@ -59,10 +64,18 @@ class ScrollBar extends Sprite
 		graphics.clear();
 		graphics.lineStyle(0, 0);
 		graphics.beginFill(0x808080);
-		graphics.drawRect(0, 0, 10, size);
-		graphics.endFill();
-		graphics.beginFill(0xFFFFFF);
-		graphics.drawRect(0, _value * (size-10), 10, 10);
+		switch(orientation) {
+			case VERTICAL:
+				graphics.drawRect(0, 0, 10, size);
+				graphics.endFill();
+				graphics.beginFill(0xFFFFFF);
+				graphics.drawRect(0, _value * (size-10), 10, 10);
+			case HORIZONTAL:
+				graphics.drawRect(0, 0, size, 10);
+				graphics.endFill();
+				graphics.beginFill(0xFFFFFF);
+				graphics.drawRect(_value * (size-10), 0, 10, 10);
+		}
 	}
 	
 	function get_value():Float 

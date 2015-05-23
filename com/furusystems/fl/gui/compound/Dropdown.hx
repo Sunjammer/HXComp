@@ -1,9 +1,9 @@
 package com.furusystems.fl.gui.compound;
 import com.furusystems.fl.gui.Label;
-import com.furusystems.flywheel.events.Signal1.Signal1;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
+import fsignal.Signal1;
 
 /**
  * ...

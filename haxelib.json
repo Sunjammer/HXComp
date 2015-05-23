@@ -7,7 +7,5 @@
   "version": "0.0.1",
   "releasenote": "",
   "contributors": [""],
-  "dependencies": {
-	  "flywheel": ""
-  }
+  "dependencies": { "fsignal" : ""} 
 }

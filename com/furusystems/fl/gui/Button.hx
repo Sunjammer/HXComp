@@ -1,8 +1,8 @@
 package com.furusystems.fl.gui;
-import com.furusystems.flywheel.events.Signal1;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
+import fsignal.Signal1;
 
 /**
  * ...
@@ -10,14 +10,15 @@ import flash.geom.Rectangle;
  */
 class Button extends Sprite
 {
-	var _label:String;
-
+	
 	public var onPress:Signal1<Button>;
+	public var data:Dynamic;
+	public var highlit(get, set):Bool;
+	
+	var _label:String;
 	var _labelTF:Label;
 	var w:Int;
 	var h:Int;
-	public var data:Dynamic;
-	public var highlit(get, set):Bool;
 	var _highlit:Bool;
 	var _isDown:Bool;
 	public function new(label:String, w:Int = 80, h:Int = 20)

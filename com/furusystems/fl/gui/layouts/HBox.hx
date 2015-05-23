@@ -1,5 +1,6 @@
-package com.furusystems.fl.gui;
+package com.furusystems.fl.gui.layouts;
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
 
@@ -13,6 +14,12 @@ class HBox extends LinearLayout
 	{
 		super(HORIZONTAL);
 		this.stride = stride;
+	}
+	
+	public static function hbox(parent:DisplayObjectContainer, stride:Int = -1) {
+		var hb = new HBox(stride);
+		parent.addChild(hb);
+		return hb;
 	}
 	
 }
