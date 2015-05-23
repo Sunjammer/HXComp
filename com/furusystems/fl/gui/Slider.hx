@@ -1,9 +1,9 @@
 package com.furusystems.fl.gui;
-import com.furusystems.flywheel.events.Signal1;
 import flash.display.Graphics;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
+import fsignal.Signal1;
 
 /**
  * ...
