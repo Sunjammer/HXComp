@@ -71,6 +71,10 @@ class Viewport extends Sprite
 		r.height -= 10;
 		scrollContainer.scrollRect = r;
 		
+		graphics.clear();
+		graphics.beginFill(0, 0);
+		graphics.drawRect(0, 0, r.width, r.height);
+		
 		outline.graphics.clear();
 		outline.graphics.lineStyle(0, 0);
 		outline.graphics.drawRect(0, 0, r.width, r.height);

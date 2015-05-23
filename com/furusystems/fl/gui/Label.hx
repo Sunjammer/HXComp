@@ -1,5 +1,6 @@
 package com.furusystems.fl.gui;
 import flash.text.TextField;
+import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -17,10 +18,14 @@ class Label extends TextField
 	public var highlit(get, set):Bool;
 	var _highlit:Bool;
 	
-	public function new(?text:String, ?w:Int, ?h:Int, centered:Bool = true, outline:Bool = false, allowInput:Bool = false, allowSelect:Bool = false)
+	public function new(?text:String, ?w:Int, ?h:Int, centered:Bool = true, outline:Bool = false, allowInput:Bool = false, allowSelect:Bool = false, autoSize:Bool = false)
 	{
 		super();
 		defaultTextFormat = centered?DEFAULT_TF_CENTERED:DEFAULT_TF;
+		
+		if (autoSize) {
+			this.autoSize = TextFieldAutoSize.LEFT;
+		}
 		
 		mouseEnabled = allowInput || allowSelect;
 		type = allowInput?TextFieldType.INPUT:TextFieldType.DYNAMIC;
