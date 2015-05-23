@@ -65,7 +65,24 @@ class TreeViewItem extends Sprite {
 	
 	public function setData(d:TreeViewData) {
 		data = d;
+		rebuild();
 		update();
+	}
+	
+	public function rebuild() 
+	{
+		childContainer.removeChildren();
+		var offset:Float = height;
+		for (c in data.children) {
+			var n:TreeViewData = cast c;
+			var nv = new TreeViewItem();
+			nv.setTreeView(treeView);
+			childContainer.addChild(nv);
+			nv.setData(n);
+			nv.y = offset;
+			nv.x = 10;
+			offset += nv.height;
+		}
 	}
 	
 	function getNodeForData(data:TreeViewData):TreeViewItem {
@@ -85,24 +102,11 @@ class TreeViewItem extends Sprite {
 			labelText += expanded?"+":"-";
 		}
 		label.text = labelText + "\t" + data.name;
-		childContainer.removeChildren();
 		
 		label.backgroundColor = isSelected() ? 0xbbbbbb : 0xffffff;
 		label.background = isSelected();
 		
-		if (expanded) {
-			var offset:Float = height;
-			for (c in data.children) {
-				var n:TreeViewData = cast c;
-				var nv = new TreeViewItem();
-				nv.setTreeView(treeView);
-				childContainer.addChild(nv);
-				nv.setData(n);
-				nv.y = offset;
-				nv.x = 10;
-				offset += nv.height;
-			}
-		}
+		childContainer.visible = expanded;
 	}
 }
 
