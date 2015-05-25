@@ -18,7 +18,7 @@ class Viewport extends Sprite
 	var scrollContainer:Sprite;
 	var contents:Sprite;
 	var outline:Shape;
-	public function new(rect:Rectangle) 
+	public function new(w:Float, h:Float) 
 	{
 		super();
 		scrollContainer = new Sprite();
@@ -39,7 +39,7 @@ class Viewport extends Sprite
 		
 		addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 		
-		setRect(rect);
+		setSize(w,h);
 	}
 	
 	function canScrollY():Bool {
@@ -82,27 +82,27 @@ class Viewport extends Sprite
 		return c;
 	}
 	
-	public function setRect(r:Rectangle):Void {
-		r.width -= 10;
-		r.height -= 10;
-		scrollContainer.scrollRect = r;
+	public function setSize(w:Float, h:Float):Void {
+		w -= 10;
+		h -= 10;
+		scrollContainer.scrollRect = new Rectangle(0, 0, w, h);
 		
 		graphics.clear();
 		graphics.beginFill(0, 0);
-		graphics.drawRect(0, 0, r.width, r.height);
+		graphics.drawRect(0, 0, w, h);
 		
 		outline.graphics.clear();
 		outline.graphics.lineStyle(0, 0);
-		outline.graphics.drawRect(0, 0, r.width, r.height);
+		outline.graphics.drawRect(0, 0, w, h);
 		
-		hbar.setSize(r.width);
-		hbar.y = r.height;
-		vbar.setSize(r.height);
-		vbar.x = r.width;
+		hbar.setSize(w);
+		hbar.y = h;
+		vbar.setSize(h);
+		vbar.x = w;
 		
 		outline.graphics.beginFill(0);
 		outline.graphics.lineStyle();
-		outline.graphics.drawRect(r.width + 1, r.height + 1, 10, 10);
+		outline.graphics.drawRect(w + 1, h + 1, 10, 10);
 		
 		onScroll();
 		
