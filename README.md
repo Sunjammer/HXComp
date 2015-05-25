@@ -2,7 +2,7 @@ HXComp
 ======
 
 Minimalcomps-esque component set for Flash dev in Haxe 3. 
-VERY simple, VBox/HBox-tree oriented layout. Depends on fusing for events. Not styleable.
+VERY simple, VBox/HBox-tree oriented layout. Depends on fsignal for events. Not styleable.
 
 Current components:
  - Label (optionally editable)
