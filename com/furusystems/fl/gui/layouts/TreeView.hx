@@ -1,8 +1,8 @@
-package com.furusystems.fl.gui.layouts.treeview;
+package com.furusystems.fl.gui.layouts;
 import com.furusystems.fl.gui.Label;
-import com.furusystems.fl.gui.layouts.treeview.TreeView.TreeViewItem;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
+import fsignal.Signal1;
 
 /**
  * ...
@@ -11,9 +11,9 @@ import flash.events.MouseEvent;
 
 typedef TreeViewData<T> = { name:String, parent:T, children:Array<T>};
  
-class TreeViewItem<T> extends Sprite {
+class TreeViewItem<T : TreeViewData<T>> extends Sprite {
 	
-	public var data:TreeViewData<T>;
+	public var data:T;
 	
 	public var expanded(get, set):Bool;
 	var _expanded:Bool = true;
@@ -63,7 +63,7 @@ class TreeViewItem<T> extends Sprite {
 		treeView = root;
 	}
 	
-	public function setData(d:TreeViewData<T>) {
+	public function setData(d:T) {
 		data = d;
 		rebuild();
 		update();
@@ -74,7 +74,7 @@ class TreeViewItem<T> extends Sprite {
 		childContainer.removeChildren();
 		var offset:Float = height;
 		for (c in data.children) {
-			var n:TreeViewData<T> = cast c;
+			var n:T = cast c;
 			var nv = new TreeViewItem<T>();
 			nv.setTreeView(treeView);
 			childContainer.addChild(nv);
@@ -110,16 +110,16 @@ class TreeViewItem<T> extends Sprite {
 	}
 }
 
-class TreeView<T> extends TreeViewItem<T>
+class TreeView<T : TreeViewData<T>> extends TreeViewItem<T>
 {
-	public var selection(get, set):TreeViewData<T>;
-	var _selection:TreeViewData<T>;
+	public var selection(get, set):T;
+	var _selection:T;
 	
-	function get_selection():TreeViewData<T> {
+	function get_selection():T {
 		return _selection;
 	}
 	
-	function set_selection(t:TreeViewData<T>):TreeViewData<T> {
+	function set_selection(t:T):T {
 		if (t == _selection) return _selection;
 		var previousNode = getNodeForData(_selection);
 		_selection = t;
@@ -128,8 +128,11 @@ class TreeView<T> extends TreeViewItem<T>
 			var s = getNodeForData(_selection);
 			if(s != null) s.update();
 		}
+		onSelection.dispatch(_selection);
 		return _selection;
 	}
+	
+	public var onSelection:Signal1<T> = new Signal1<T>();
 	
 	public function new() 
 	{
