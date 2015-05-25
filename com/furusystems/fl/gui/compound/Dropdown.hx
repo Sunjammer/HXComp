@@ -11,10 +11,26 @@ import fsignal.Signal1;
  */
 class Dropdown extends Sprite
 {
+	public var selectedIndex(get, set):Int;
+	var _selectedIndex:Int;
+	
+	public var selectedItem(get, set):String;
+	
+	function get_selectedItem():String {
+		return items[_selectedIndex];
+	}
+	function set_selectedItem(s:String):String {
+		if (items.indexOf(s) > -1) {
+			setSelection(s);
+		}
+		return get_selectedItem();
+	}
+	
 	var selectedLabel:Label;
 	var tempSelection:Label;
 	var items:Array<String>;
 	var itemListContainer:Sprite;
+	
 	public var onSelection:Signal1<String>;
 	public function new(width:Int = 80, height:Int = 20, defaultText:String = "") 
 	{
@@ -29,12 +45,23 @@ class Dropdown extends Sprite
 		itemListContainer.filters = [new DropShadowFilter(4, 90, 0, 0.2, 8, 8)];
 	}
 	
+	function get_selectedIndex():Int 
+	{
+		return _selectedIndex;
+	}
+	
+	function set_selectedIndex(value:Int):Int 
+	{
+		return _selectedIndex = value;
+	}
+	
 	private function onMouseDown(e:MouseEvent):Void 
 	{
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		buildList();
 	}
+	
 	
 	function buildList() 
 	{
@@ -71,6 +98,11 @@ class Dropdown extends Sprite
 		}
 	}
 	
+	public function clear():Void {
+		items = [];
+		buildList();
+	}
+	
 	function destroyList() 
 	{
 		removeChild(itemListContainer);
@@ -91,7 +123,9 @@ class Dropdown extends Sprite
 	
 	public function setSelection(str:String) 
 	{
+		if (items.indexOf(str) == -1) return;
 		selectedLabel.text = str;
+		_selectedIndex = items.indexOf(str);
 		onSelection.dispatch(str);
 	}
 	
