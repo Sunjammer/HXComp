@@ -25,6 +25,7 @@ class TreeViewItem<T : TreeViewData<T>> extends Sprite {
 	
 	public function new() {
 		super();
+		buttonMode = true;
 		label = new Label("Foo", 0, 0, false, true, false, false, true);
 		childContainer = new Sprite();
 		addChild(childContainer);
@@ -96,6 +97,16 @@ class TreeViewItem<T : TreeViewData<T>> extends Sprite {
 		return null;
 	}
 	
+	public function getDataByName(name:String):T {
+		if (data.name == name) return data;
+		for (i in 0...childContainer.numChildren) {
+			var item:TreeViewItem<T> = cast childContainer.getChildAt(i);
+			var r = item.getDataByName(name);
+			if (r != null) return r;
+		}
+		return null;
+	}
+	
 	public function update() {
 		var labelText = "";
 		if (data.children.length > 0) {
@@ -112,6 +123,8 @@ class TreeViewItem<T : TreeViewData<T>> extends Sprite {
 
 class TreeView<T : TreeViewData<T>> extends TreeViewItem<T>
 {
+	public var onSelection:Signal1<T>;
+	
 	public var selection(get, set):T;
 	var _selection:T;
 	
@@ -132,11 +145,17 @@ class TreeView<T : TreeViewData<T>> extends TreeViewItem<T>
 		return _selection;
 	}
 	
-	public var onSelection:Signal1<T> = new Signal1<T>();
+	public function selectByName(name:String):Void {
+		trace("Select by name: " + name);
+		var r = getDataByName(name);
+		if (r != null) selection = r;
+	}
+	
 	
 	public function new() 
 	{
 		super();
+		onSelection = new Signal1<T>();
 		setTreeView(this);
 		data = null;
 	}

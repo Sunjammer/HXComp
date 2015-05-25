@@ -3,6 +3,7 @@ import com.furusystems.fl.gui.Label;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
+import flash.geom.Point;
 import fsignal.Signal1;
 
 /**
@@ -73,7 +74,10 @@ class Dropdown extends Sprite
 			l.y = i * 20;
 			itemListContainer.addChild(l);
 		}
-		addChildAt(itemListContainer, 0).y = 20;
+		var lp = parent.localToGlobal(new Point(x, y));
+		stage.addChild(itemListContainer);
+		itemListContainer.x = lp.x;
+		itemListContainer.y = lp.y+20;
 	}
 	
 	private function onMouseMove(e:MouseEvent):Void 
@@ -105,7 +109,7 @@ class Dropdown extends Sprite
 	
 	function destroyList() 
 	{
-		removeChild(itemListContainer);
+		stage.removeChild(itemListContainer);
 	}
 	public function removeItem(str:String):Void {
 		var i = items.length - 1;
