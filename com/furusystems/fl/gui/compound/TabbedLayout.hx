@@ -1,7 +1,7 @@
 package com.furusystems.fl.gui.compound;
 import com.furusystems.fl.gui.Button;
-import com.furusystems.fl.gui.HBox;
-import com.furusystems.fl.gui.LinearLayout;
+import com.furusystems.fl.gui.layouts.HBox;
+import com.furusystems.fl.gui.layouts.LinearLayout;
 import flash.display.Sprite;
 import fsignal.Signal1;
 
